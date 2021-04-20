@@ -40,7 +40,7 @@ const productSchema = mongoose.Schema({
                 discount:{
                     type: Number,
                     required: false,
-                    default:0
+                    min:0
                 }
             },
             {
