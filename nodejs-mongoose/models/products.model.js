@@ -18,15 +18,16 @@ const productSchema = mongoose.Schema({
         default : true
     },
     details: {
-        type:Object,
             description:{
                 type: String,
                 required: true,
-                validate(value) {
-                    if(value.length < 10 ){
-                        throw new Error('Has to be at least 10 letters')
-                    }
-                }
+                trim:true,
+                minLength:10
+                // validate(value) {
+                //     if(value.length < 10 ){
+                //         throw new Error('Has to be at least 10 letters')
+                //     }
+                // }
             },
             
             price:{
@@ -43,6 +44,7 @@ const productSchema = mongoose.Schema({
             
             images:{
                 type: Array,
+                required:true,
                 validate(value) {
                     if(value.length < 2 ){
                         throw new Error('Must include at least two images');

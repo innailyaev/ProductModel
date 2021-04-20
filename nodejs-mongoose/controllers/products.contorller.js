@@ -20,10 +20,9 @@ const createProduct = (req, res) => {
 }
 
 const getProducts = (req, res) => {
-    // roomModel.find({}).then((rooms) => {
-    //     return res.send(rooms)
-    // });
-    res.send('hello');
+    productModel.find().then((products) => {
+        return res.send(products)
+    });
 }
 
 module.exports = {
