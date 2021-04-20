@@ -23,11 +23,6 @@ const productSchema = mongoose.Schema({
                 required: true,
                 trim:true,
                 minLength:10
-                // validate(value) {
-                //     if(value.length < 10 ){
-                //         throw new Error('Has to be at least 10 letters')
-                //     }
-                // }
             },
             
             price:{
@@ -54,7 +49,13 @@ const productSchema = mongoose.Schema({
     
             phoneNumber:{
                 type: String,
-                required: true
+                required: true,
+                minLength:10,
+                // validate(value){
+                //     if (!validator.isMobilePhone(value, "he-IL") ) {
+                //         throw new Error("Not A valid israeli Number");              
+                //     }
+                // }
             },
             date: {
                 type: Date,
