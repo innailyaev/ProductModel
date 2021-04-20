@@ -1,32 +1,32 @@
-const roomModel = require('../models/products.model');
+const productModel = require('../models/products.model');
 
 
-const createRoom = (req, res) => {
+const createProduct = (req, res) => {
     // const data = req.body;
-    const {roomName, roomNumber, floor} = req.body;
-    if (roomNumber < 0) {
-        return res.json({"error": "asfsaf"})
-    }
-    const room = new roomModel({
-        roomName: roomName,
-        roomNumber: roomNumber,
-        floor: floor,
+    const {productName, productCategory, details} = req.body;
+   
+    const product = new productModel({
+        productName:productName,
+        productCategory: productCategory,
+        details:details
     });
-    room.save((err) => {
+
+    product.save((err) => {
         if (err) return res.json({"error": err})
-        return res.json({"success": room})
+        return res.json({"success": product})
     });
 
 
 }
 
-const getRooms = (req, res) => {
-    roomModel.find({}).then((rooms) => {
-        return res.send(rooms)
-    });
+const getProducts = (req, res) => {
+    // roomModel.find({}).then((rooms) => {
+    //     return res.send(rooms)
+    // });
+    res.send('hello');
 }
 
 module.exports = {
-    create: createRoom,
-    getAll: getRooms
+    create: createProduct,
+    getAll: getProducts
 }

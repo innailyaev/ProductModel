@@ -17,58 +17,51 @@ const productSchema = mongoose.Schema({
         unique: false,
         default : true
     },
-    details: [
-            {
-                description:{
-                    type: String,
-                    required: true,
-                    validate(value) {
-                        if(value.length < 10 ){
-                            throw new Error('Has to be at least 10 letters')
-                        }
+    details: {
+        type:Object,
+            description:{
+                type: String,
+                required: true,
+                validate(value) {
+                    if(value.length < 10 ){
+                        throw new Error('Has to be at least 10 letters')
                     }
                 }
             },
-            {
-                price:{
-                    type: Number,
-                    required: true,
-                    min:0
-                }
+            
+            price:{
+                type: Number,
+                required: true,
+                min:0
             },
-            {
-                discount:{
-                    type: Number,
-                    required: false,
-                    min:0
-                }
+            
+            discount:{
+                type: Number,
+                required: false,
+                min:0
             },
-            {
-                images:{
-                    type: Array,
-                    validate(value) {
-                        if(value.length < 2 ){
-                            throw new Error('Must include at least two images');
-                        }
+            
+            images:{
+                type: Array,
+                validate(value) {
+                    if(value.length < 2 ){
+                        throw new Error('Must include at least two images');
                     }
-                } 
+                }    
             },
-            {
-                phoneNumber:{
-                    type: Number,
-                    required: true
-                }
+    
+            phoneNumber:{
+                type: String,
+                required: true
             },
-            {
-                date: {
-                    type: Date,
-                    required: false,
-                    unique: false,
-                    default : Date.now()
-                }
+            date: {
+                type: Date,
+                required: false,
+                unique: false,
+                default : Date.now()
             }
 
-    ],
+        },//End details
 })
 
 const productmodel  = mongoose.model('products',productSchema);
