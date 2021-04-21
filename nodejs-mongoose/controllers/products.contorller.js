@@ -1,8 +1,7 @@
 const productModel = require('../models/products.model');
-const ObjectId = require('mongodb').ObjectID;
 
 
-const createProduct = (req, res) => {
+const createProduct = async (req, res) => {
     // const data = req.body;
     const {productName, productCategory, details} = req.body;
    
@@ -12,42 +11,50 @@ const createProduct = (req, res) => {
         details:details
     });
 
-    product.save((err) => {
-        if (err) return res.json({"error": err})
-        return res.json({"success": product})
-    });
-
+    try{
+        await product.save();
+        res.json({"success": product});
+    }catch (e){
+        res.json({"error": err});}
 }
 
-const getProducts = (req, res) => {
-    productModel.find().then((products) => {
-        return res.send(products)
-    });
+const getProducts = async (req, res) => {
+    try{
+        const products = await productModel.find();
+        res.send(products);
+    }catch (e){
+        res.status(500).send(e);}
 }
 
-const getById = (req,res)=>{
+const getById = async (req,res)=>{
     const {id} = req.params;
-    productModel.find({_id:ObjectId(id)}).then((product) => {
-        return res.send(product);
-    });
+    try{
+        const product = await productModel.findById(id);
+        res.send(product);
+    }catch (e){
+        res.status(500).send(e);}
 }
 
-const getActive = (req,res)=>{
+const getActive = async (req,res)=>{
     const query = req.query;
-    productModel.find({isActive:query.isActive}).then((products) => {
-        return res.send(products);
-    });
+    try{
+        const products = await productModel.find({isActive:query.isActive});
+        res.send(products);
+    }catch (e){
+        res.status(500).send(e);}  
 }
 
-const getPrice = (req,res)=>{
+const getPrice = async (req,res)=>{
     const query = req.query;
     // productModel.find({ $and: [ { "details.price": { $gte: query.min } }, { "details.price": { $lte: query.max } } ] }).then((products) => {
     //     return res.send(products);
     // });
-
-    productModel.find({"details.price" : {$lte :query.max, $gte : query.min}}).then((products) => {
-        return res.send(products);
-    });
+    try{
+        const products = await productModel.find({"details.price" : {$lte :query.max, $gte : query.min}});
+        res.send(products);
+    }catch (e){
+        res.status(500).send(e);} 
+    
 }
 
 module.exports = {
