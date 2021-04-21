@@ -13,6 +13,12 @@ router.get('/',(req,res)=>{
    productControler.getPrice(req,res);
 }).get('/:id',(req,res)=>{
    productControler.getById(req,res);
+}).put('/:id',(req,res)=>{
+   productControler.updateProduct(req,res);
+}).delete('/:id',(req,res)=>{
+   productControler.deleteProductByID(req,res);
+}).delete('/',(req,res)=>{
+   productControler.deleteAll(req,res);
 })
 
 module.exports = router;
